@@ -8,7 +8,7 @@ int main(void){
     int n, q, x;
     cin >> n;
     vector<int> v(n);
-    for(int i = 0; i < n; i++) cin >> v[i];
+    for(auto& i : v) cin >> i;
     sort(v.begin(), v.end());
     cin >> q;
     while(q--){
