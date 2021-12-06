@@ -1,23 +1,37 @@
 #include<stdio.h>
-#include<string.h>
-#define max(a,b) a>b?a:b
-char s1[1005], s2[1005];
-int q, a, b, dp[1005], l1, l2, ans = 0;
+#include<stdlib.h>
+int n, a[100005], q, x;
+int cmp(const void *a, const void *b){
+    return (*(const int*)a)-(*(const int*)b);
+}
+int lower(int x){
+    int l = 0, r = n-1;
+    while(l <= r){
+        int mid = (l+r)/2;
+        if(x <= a[mid]) r = mid-1;
+        else l = mid+1;
+    }
+    return l;
+}
+int upper(int x){
+    int l = 0, r = n-1;
+    while(l <= r){
+        int mid = (l+r)/2;
+        if(x < a[mid]) r = mid-1;
+        else l = mid+1;
+    }
+    return l;
+}
 int main(void){
-    while(~scanf("%s %s", s1, s2)){
-        l1 = strlen(s1), l2 = strlen(s2);
-        for(int i = 1; i <= l1-l2+1; i++){
-            dp[i] = dp[i-1]+(!strncmp(s1+i-1, s2, l2));
-            //printf("%d ", dp[i]);
-        }gg
-        ans = 0;
-        scanf("%d", &q);
-        while(q--){
-            scanf("%d %d", &a, &b);
-            if(b-a+1 < l2) continue;
-            ans = max(ans, dp[b-l2+1]-dp[a-1]);
-        }
-        printf("%d\n", ans);
+    scanf("%d", &n);
+    for(int i = 0; i < n; i++) scanf("%d", a+i);
+    qsort(a, n, sizeof(int), cmp);
+    scanf("%d", &q);
+    //for(int i = 0; i < n; i++) printf("%d ", a[i]);
+    while(q--){
+        scanf("%d", &x);
+        //printf("%d %d\n", upper(x), lower(x));
+        printf("%d\n", upper(x)-lower(x));
     }
     return 0;
 }
