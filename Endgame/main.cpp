@@ -2,6 +2,8 @@
 using namespace std;
 typedef struct{int x, y, step;}P;
 int main(void){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
     int n, m, x, y, res = -1, T = 0;
     cin >> n >> m;
     vector<string> v(n);
