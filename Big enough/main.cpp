@@ -50,7 +50,7 @@ BigInt BigInt::operator+(const BigInt& y){
     idx--;
     while(idx>0 && res[idx]==0) idx--;
     res.sign = res[idx]<0?-1:1;
-    for(int i = 0; i <= idx; i++) res[i] *= res.sign;
+    if(res.sign == -1) for(int i = 0; i <= idx; i++) res[i] = -res[i];
     for(int i = 0; i < idx; i++)
         if(res[i] < 0) res[i] += 100000, res[i+1]--;
     while(idx>0 && res[idx]==0) idx--;
