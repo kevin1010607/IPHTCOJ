@@ -2,13 +2,13 @@
 using namespace std;
 typedef struct{int x, y, u;}P;
 int t, n, r, k;
-int dfs(int idx, vector<P>& v){
+int dfs(P& now, vector<P>& v){
     int res = 1;
-    v[idx].u = 1;
-    for(int i = 0; i < n; i++){
-        if(v[i].u) continue;
-        if(((v[idx].x-v[i].x)*(v[idx].x-v[i].x)+(v[idx].y-v[i].y)*(v[idx].y-v[i].y)) <= r*r)
-            res += dfs(i, v);
+    now.u = 1;
+    for(auto& p : v){
+        if(p.u) continue;
+        if(((now.x-p.x)*(now.x-p.x)+(now.y-p.y)*(now.y-p.y)) <= r*r)
+            res += dfs(p, v);
     }
     return res;
 }
@@ -21,9 +21,9 @@ int main(void){
         vector<P> v(n);
         for(auto& p : v) cin >> p.x >> p.y;
         int res1 = 0, res2 = 0;
-        for(int i = 0; i < n; i++){
-            if(v[i].u) continue;
-            int cnt = dfs(i, v);
+        for(auto& p : v){
+            if(p.u) continue;
+            int cnt = dfs(p, v);
             (cnt<k)?(res1++):(res2++);
         }
         cout << res1 << " " << res2 << "\n";
