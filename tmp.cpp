@@ -1,25 +1,32 @@
 #include<bits/stdc++.h>
 using namespace std;
-void dfs(vector<int> &x, vector<int> &y, vector<int> &used, int idx, int first, int &alone, int q){
-    int flag = 0;
-    used[idx] = 1;
-    for(int i = 0; i < x.size(); i++){
-        if(used[i]) continue;
-        if((x[idx]-x[i])*(x[idx]-x[i])+(y[idx]-y[i])*(y[idx]-y[i]) <= q*q)
-            dfs(x,y,used, i, 0, alone, q);
+typedef struct{int x,y,u;}S;
+bool connect(S a, S b, int r){
+    return ((a.x-b.x)*(a.x-b.x)+(a.y-b.y)*(a.y-b.y)) <= r*r;
+}
+int dfs(int id, vector<S>& v, int r){
+    int res = 1;
+    v[id].u = 1;
+    for(int i = 0; i < v.size(); i++){
+        if(v[i].u == 1) continue;
+        if(connect(v[id], v[i], r)) res += dfs(i, v, r);
     }
-    if(flag && first) alone++;
+    return res;
 }
 int main(void){
-    int n, q, alone(0), total(0);
-    cin >> n >> q;
-    vector<int> x(n), y(n), used(n, 0);
-    for(int i = 0; i < n; i++) cin >> x[i] >> y[i];
-    for(int i = 0; i < n; i++){
-        if(used[i]) continue;
-        dfs(x, y, used, i, 1, alone, q);
-        total++; 
+    int t, k, n, r;
+    cin >> t;
+    while(t--){
+        cin >> n >> r >> k;
+        int res1 = 0, res2 = 0;
+        vector<S> v(n);
+        for(auto& i : v) cin >> i.x >> i.y;
+        for(int i = 0; i < n; i++){
+            if(v[i].u == 1) continue;
+            int aa = dfs(i, v, r);
+            aa<k?res1++:res2++;
+        }
+        cout << res1 << " " << res2 << "\n";
     }
-    cout << alone << " " << total-alone << "\n";
     return 0;
 }
