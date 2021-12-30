@@ -2,6 +2,8 @@
 using namespace std;
 int t, r, g, b, res, a[3];
 int main(void){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
     cin >> t;
     while(t--){
         cin >> r >> g >> b;

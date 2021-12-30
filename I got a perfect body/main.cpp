@@ -2,10 +2,10 @@
 using namespace std;
 int t, n, p, k;
 int main(void){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
     cin >> t;
     while(t--){
-        ios_base::sync_with_stdio(0);
-        cin.tie(0);
         cin >> n >> p >> k;
         vector<int> v(n), dp(n+1);
         for(auto& i : v) cin >> i;
